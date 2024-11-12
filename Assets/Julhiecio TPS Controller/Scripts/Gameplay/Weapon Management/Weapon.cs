@@ -5,16 +5,17 @@ using UnityEditor;
 [RequireComponent(typeof(AudioSource))]
 public class Weapon : MonoBehaviour
 {
-	public LayerMask CrosshairHitMask;
+    public LayerMask CrosshairHitMask;
 	public WeaponAimRotationCenter WeaponAimPositions;
 	public CamPivotController MyPivotCamera;
 	public Transform MyCamera;
 
 	[Header("Weapon Setting")]
-	public string WeaponName;
+    public string WeaponName;
 	public int WeaponSwitchID;
 	public int WeaponPositionID;
 	public bool Unlocked;
+
 
 	//Bullets
 	[Range(1,200)]
@@ -84,8 +85,9 @@ public class Weapon : MonoBehaviour
 
 	public enum WeaponFireMode { Auto, SemiAuto, BoltAction, Shotgun }
 	public enum WeaponAimMode { None,CameraApproach, Scope}
+    public int WeaponDamage = 25;
 
-	private void Start()
+    private void Start()
 	{
 		MyPivotCamera = FindObjectOfType<CamPivotController>();
 		MyCamera = MyPivotCamera.mCamera.transform;
@@ -188,7 +190,7 @@ public class Weapon : MonoBehaviour
 				ShotErrorProbability = ShotErrorProbability + LossOfAccuracyPerShot;
 			}
 			//Spawn bullet
-			var bullet = (GameObject)Instantiate(BulletPrefab, Shoot_Position.position, Shoot_Position.rotation);
+			var bullet = (GameObject)Instantiate(BulletPrefab, Shoot_Position.position, Shoot_Position.rotation); 
 			bullet.GetComponent<Bullet>().FinalPoint = CrosshairHit.point;
 			bullet.GetComponent<Bullet>().DestroyBulletRotation = CrosshairHit.normal;
 			Destroy(bullet, 10f);

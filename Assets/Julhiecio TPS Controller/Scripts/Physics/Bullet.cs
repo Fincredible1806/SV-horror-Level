@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Unity.VisualScripting;
+using UnityEngine;
 
 [AddComponentMenu("JU TPS/Physics/Bullet")]
 [RequireComponent(typeof(Rigidbody))]
@@ -19,6 +20,7 @@ public class Bullet : MonoBehaviour
 
 	[HideInInspector]
 	public Vector3 FinalPoint;  //It's the camera raycast hit position
+
 	void Start()
     {
 		rb = GetComponent<Rigidbody> ();
@@ -54,6 +56,18 @@ public class Bullet : MonoBehaviour
 	{
 		if (col.gameObject.tag != "Bullet" && col.gameObject.tag != "Player")
 		{
+			if(col.gameObject.tag == "Enemy")
+			{
+				Debug.Log("Taking damage");
+				EnemyHealth enemyHealth = col.gameObject.GetComponent<EnemyHealth>();
+				if (enemyHealth != null)
+				{
+					enemyHealth.TakeDamage();
+				}
+				DestroyBullet();
+				return;
+			}
+
 			//Instantiate and destroy Bullet Collision Particle
 			if (FinalPoint == Vector3.zero)
 				FinalPoint = transform.position;

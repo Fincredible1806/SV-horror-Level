@@ -1391,4 +1391,17 @@ public class ThirdPersonController : MonoBehaviour
             }
         }
     }
+
+    public void PlayerTakeDamage()
+    {
+        if (!IsDead)
+        {
+            Health = Health - 20;
+            if (Health <= 0)
+            {
+                anim.SetTrigger("die");
+                IsDead = true;
+            }
+        }
+    }
 }

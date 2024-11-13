@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
+    public bool alive = true;
     public int health;
     public int damage = 25;
     [SerializeField] Animator animator;
@@ -11,13 +12,7 @@ public class EnemyHealth : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        alive = true;
     }
 
     public void TakeDamage()
@@ -32,6 +27,7 @@ public class EnemyHealth : MonoBehaviour
 
     private void KillZombie()
     {
+        alive = false;
         animator.SetTrigger(deadTriggername);
         Destroy(gameObject, 3f);
     }

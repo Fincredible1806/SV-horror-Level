@@ -21,7 +21,7 @@ TagManager:
   - Water
   - UI
   - Interactables
-  - 
+  - wall
   - Vehicle
   - Player
   - Bullet
@@ -31,7 +31,7 @@ TagManager:
   - Weapon
   - PlayerBones
   - Walls
-  - 
+  - Door
   - 
   - 
   - 

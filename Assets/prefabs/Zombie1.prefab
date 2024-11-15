@@ -2359,6 +2359,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   attackAnimBool: Attacking
   walkAnimBool: Walking
+  idleAnimBool: Idling
   playerName: '[ PLAYER ]'
   agent: {fileID: 0}
   timeToNextPoint: 2.5
@@ -2378,6 +2379,10 @@ MonoBehaviour:
   attackRange: 1.2
   playerInSight: 0
   playerInAttackRange: 0
+  suspicious: 0
+  suspicionTime: 0
+  suspicionTimePassed: 0
+  waiting: 0
 --- !u!195 &8253479442118300472
 NavMeshAgent:
   m_ObjectHideFlags: 0

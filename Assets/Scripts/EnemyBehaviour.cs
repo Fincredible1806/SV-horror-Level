@@ -5,11 +5,15 @@ using UnityEngine.AI;
 
 public class EnemyBehaviour : MonoBehaviour
 {
-    [Header("Misc.")]
+    [Header("Animation")]
     [SerializeField] Animator animator;
     [SerializeField] string attackAnimBool;
     [SerializeField] string walkAnimBool;
-    [SerializeField] string playerName;
+    [SerializeField] string idleAnimBool;
+
+
+    [Header("Config")]
+    [SerializeField] private string playerName;
     public NavMeshAgent agent;
 
     [SerializeField] float timeToNextPoint;
@@ -39,8 +43,19 @@ public class EnemyBehaviour : MonoBehaviour
     public float attackRange;
     public bool playerInSight, playerInAttackRange;
 
+    [Header("Idling")]
+    // Idle state
+    public bool suspicious = false;
+    [SerializeField] float suspicionTime;
+    [SerializeField] float suspicionTimePassed;
+    public bool waiting;
+
     private void Awake()
     {
+        if (waiting)
+        {
+            suspicious = false;
+        }
         player = GameObject.Find(playerName).transform;
         agent = GetComponent<NavMeshAgent>();
         health = GetComponent<EnemyHealth>();
@@ -49,22 +64,82 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void Update()
     {
-        if(health.alive)
-        {
-            //Check Sight and Atk range
-            playerInSight = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
-            playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
-            if (!playerInSight && !playerInAttackRange) Patrol();
-            if (playerInSight && !playerInAttackRange) Chasing();
-            if (playerInSight && playerInAttackRange) Attack();
+        if (waiting)
+        {
+            Idle();
         }
 
+        else
+        {
+            if (health.alive)
+            {
+                //Check Sight and Atk range
+                RangeChecks();
+
+                if (!playerInSight && !playerInAttackRange)
+                {
+                    if (suspicious)
+                    {
+                        Idle();
+                    }
+                    else
+                    {
+                        Patrol();
+                    }
+                }
+                if (playerInSight && !playerInAttackRange) Chasing();
+                if (playerInSight && playerInAttackRange) Attack();
+
+            }
+        }
         if(!health.alive)
         {
             agent.SetDestination(transform.position);
         }
         
+    }
+
+    private void RangeChecks()
+    {
+        playerInSight = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
+        playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
+    }
+
+    private void Idle()
+    {
+        RangeChecks();
+
+        if (!suspicious)
+        {
+            walkPoint = transform.position;
+            IdleBools();
+        }
+
+        if (suspicious)
+        {
+            IdleBools();
+            waiting = false;
+            walkPoint = transform.position;
+            suspicionTimePassed += Time.deltaTime;
+            if (suspicionTime <= suspicionTimePassed)
+            {
+                suspicious = false;
+            }
+        }
+
+        if (playerInSight || playerInAttackRange)
+        {
+            waiting = false;
+            suspicious = true;
+        }
+    }
+
+    private void IdleBools()
+    {
+        animator.SetBool(idleAnimBool, true);
+        animator.SetBool(attackAnimBool, false);
+        animator.SetBool(walkAnimBool, false);
     }
 
     private void Patrol()
@@ -112,8 +187,10 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void Chasing()
     {
+        suspicious = true;
         agent.SetDestination(player.position);
-        animator.SetBool(walkAnimBool, true);
+        animator.SetBool(walkAnimBool, true); 
+        animator.SetBool(idleAnimBool, false);
         animator.SetBool(attackAnimBool, false);
     }
 
@@ -121,7 +198,8 @@ public class EnemyBehaviour : MonoBehaviour
     {
         //Stop enemy from moving while attacking and make sure is facing player
         agent.SetDestination(transform.position);
-        
+
+        animator.SetBool(idleAnimBool, false);
         animator.SetBool(walkAnimBool, false);
         animator.SetBool(attackAnimBool, true);
 
@@ -141,6 +219,12 @@ public class EnemyBehaviour : MonoBehaviour
         attackedAlready = false;
     }
 
+    public void LoseSuspicion()
+    {
+        suspicious = false;
+        Idle();
+    }
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
@@ -149,5 +233,13 @@ public class EnemyBehaviour : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, sightRange);
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, walkPointRange);
+    }
+
+    public void newTargetPosition()
+    {
+        animator.SetBool(idleAnimBool, false);
+        waiting = false;
+        walkPointIsSet = true;
+        walkPoint = player.transform.position;
     }
 }

@@ -9,9 +9,11 @@ public class EnemyHealth : MonoBehaviour
     public int damage = 25;
     [SerializeField] Animator animator;
     [SerializeField] private string deadTriggername;
+    private EnemyBehaviour enemyBehaviour;
     // Start is called before the first frame update
     void Start()
     {
+        enemyBehaviour = GetComponent<EnemyBehaviour>();
         alive = true;
     }
 
@@ -19,6 +21,7 @@ public class EnemyHealth : MonoBehaviour
     {
         Debug.Log("TakeDamage" + damage);
         health = health -damage;
+        enemyBehaviour.walkPoint = enemyBehaviour.player.transform.position;
         if (health <= 0)
         {
             KillZombie();

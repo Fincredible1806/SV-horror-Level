@@ -2358,8 +2358,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
   attackAnimBool: Attacking
-  walkAnimBool: Walking
+  walkAnimBool: Wandering
   idleAnimBool: Idling
+  chaseAnimBool: Chasing
   playerName: '[ PLAYER ]'
   agent: {fileID: 0}
   timeToNextPoint: 2.5

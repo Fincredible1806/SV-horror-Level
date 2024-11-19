@@ -10,6 +10,7 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] string attackAnimBool;
     [SerializeField] string walkAnimBool;
     [SerializeField] string idleAnimBool;
+    [SerializeField] string chaseAnimBool;
 
 
     [Header("Config")]
@@ -140,6 +141,7 @@ public class EnemyBehaviour : MonoBehaviour
         animator.SetBool(idleAnimBool, true);
         animator.SetBool(attackAnimBool, false);
         animator.SetBool(walkAnimBool, false);
+        animator.SetBool(chaseAnimBool, false);
     }
 
     private void Patrol()
@@ -147,6 +149,8 @@ public class EnemyBehaviour : MonoBehaviour
         timeSinceLastPoint += Time.deltaTime;
         animator.SetBool(walkAnimBool, true);
         animator.SetBool(attackAnimBool, false);
+        animator.SetBool(idleAnimBool, false);
+        animator.SetBool(chaseAnimBool, false);
 
         if (!walkPointIsSet || timeSinceLastPoint >= timeToNextPoint)
         {
@@ -189,9 +193,10 @@ public class EnemyBehaviour : MonoBehaviour
     {
         suspicious = true;
         agent.SetDestination(player.position);
-        animator.SetBool(walkAnimBool, true); 
+        animator.SetBool(walkAnimBool, false); 
         animator.SetBool(idleAnimBool, false);
         animator.SetBool(attackAnimBool, false);
+        animator.SetBool(chaseAnimBool, true);
     }
 
     private void Attack()
@@ -202,6 +207,7 @@ public class EnemyBehaviour : MonoBehaviour
         animator.SetBool(idleAnimBool, false);
         animator.SetBool(walkAnimBool, false);
         animator.SetBool(attackAnimBool, true);
+        animator.SetBool(chaseAnimBool, false);
 
         transform.LookAt(player);
 
@@ -237,6 +243,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     public void newTargetPosition()
     {
+        sightRange = 4;
         animator.SetBool(idleAnimBool, false);
         waiting = false;
         walkPointIsSet = true;

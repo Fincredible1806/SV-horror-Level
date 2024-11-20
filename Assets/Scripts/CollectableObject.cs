@@ -5,23 +5,25 @@ using UnityEngine.Events;
 
 public class CollectableObject : MonoBehaviour
 {
+    public bool active = true;
     [SerializeField] GameObject pickupUI;
     [SerializeField] UnityEvent interactEvent;
     [SerializeField] Collider rangeCollider;
     private bool isInRange;
-    [SerializeField] GameObject player;
-    [SerializeField] KeyCode interactKey;
+    private GameObject player;
+    [SerializeField]private string playerName;
+    [SerializeField] private KeyCode interactKey = KeyCode.F;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        player = GameObject.Find(playerName);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(isInRange)
+        if (isInRange && active)
         {
             if(Input.GetKeyDown(interactKey))
             {
@@ -36,7 +38,7 @@ public class CollectableObject : MonoBehaviour
         if(other.gameObject == player) 
         {
             isInRange = true;
-            if(pickupUI != null) 
+            if(pickupUI != null && active) 
             {
                 pickupUI.SetActive(true);
             }
@@ -53,6 +55,15 @@ public class CollectableObject : MonoBehaviour
             {
                 pickupUI.SetActive(false);
             }
+        }
+    }
+
+    public void Activate()
+    {
+        active = true;
+        if (isInRange && pickupUI != null)
+        {
+            pickupUI.SetActive(true);
         }
     }
 }

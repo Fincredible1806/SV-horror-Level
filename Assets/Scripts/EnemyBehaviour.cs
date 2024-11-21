@@ -23,6 +23,7 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] EnemyHealth health;
 
     public Transform player;
+    public float newSightRange;
 
     public LayerMask whatIsFloor;
     public LayerMask whatIsPlayer;
@@ -243,7 +244,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     public void newTargetPosition()
     {
-        sightRange = 4;
+        sightRange = newSightRange;
         animator.SetBool(idleAnimBool, false);
         waiting = false;
         walkPointIsSet = true;

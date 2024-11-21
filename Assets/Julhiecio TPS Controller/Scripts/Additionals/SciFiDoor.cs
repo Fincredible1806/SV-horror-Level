@@ -25,10 +25,13 @@ public class SciFiDoor : MonoBehaviour
 
     Vector3 rightDoorOpenedPosition;
     Vector3 leftDoorOpenedPosition;
+    AudioSource source;
+    int timesPlayed;
 
     private ThirdPersonController player;
     void Start()
     {
+        source = GetComponent<AudioSource>();
         lockedCollider.enabled = false;
         if(locked)
         {
@@ -71,6 +74,7 @@ public class SciFiDoor : MonoBehaviour
                     LeftDoor.position = Vector3.Lerp(LeftDoor.position, LeftDoorStartPosition, DoorSpeed * Time.deltaTime);
                     RightDoor.position = Vector3.Lerp(RightDoor.position, RightDoorStartPosition, DoorSpeed * Time.deltaTime);
                 }
+
 
             }
         }

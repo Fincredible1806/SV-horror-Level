@@ -1404,4 +1404,12 @@ public class ThirdPersonController : MonoBehaviour
             }
         }
     }
+
+    public void PlayerHeal()
+    {
+        if (Health < 100)
+        {
+            Health = Mathf.Clamp(Health + 20, 0, 100);
+        }
+    }
 }

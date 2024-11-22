@@ -2262,7 +2262,7 @@ Transform:
   m_GameObject: {fileID: 7093679190826256281}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.70710707, z: -0, w: 0.7071066}
-  m_LocalPosition: {x: 1142.8047, y: -496.2768, z: 496.9783}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2367,6 +2367,7 @@ MonoBehaviour:
   timeSinceLastPoint: 0
   health: {fileID: 7026847058611060150}
   player: {fileID: 0}
+  newSightRange: 0
   whatIsFloor:
     serializedVersion: 2
     m_Bits: 8
@@ -2394,8 +2395,8 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 2.5
-  m_Acceleration: 2
+  m_Speed: 2
+  m_Acceleration: 1
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 0

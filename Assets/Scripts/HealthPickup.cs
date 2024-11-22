@@ -12,6 +12,7 @@ public class HealthPickup : MonoBehaviour
         {
 
             ThirdPersonController controller = other.GetComponent<ThirdPersonController>();
+            HealthStorage storage = other.GetComponent <HealthStorage>();
             if (controller != null)
             {
                 if(pickupClip != null)
@@ -19,7 +20,14 @@ public class HealthPickup : MonoBehaviour
                     AudioSource.PlayClipAtPoint(pickupClip, gameObject.transform.position);
 
                 }
-                controller.PlayerHeal();
+                if (controller.Health < 100)
+                {
+                    controller.PlayerHeal();
+                }
+                if (controller.Health >= 100)
+                {
+                    storage.addItem();
+                }
                 Destroy(gameObject);
             }
         }

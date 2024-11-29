@@ -2340,7 +2340,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   alive: 1
-  health: 125
+  health: 250
   damage: 25
   animator: {fileID: 5066630414849340824}
   deadTriggername: Died

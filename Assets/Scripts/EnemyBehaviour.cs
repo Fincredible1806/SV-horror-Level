@@ -19,6 +19,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     [SerializeField] float timeToNextPoint;
     [SerializeField] float timeSinceLastPoint;
+    [SerializeField] bool isSpawned = true;
 
     [SerializeField] EnemyHealth health;
 
@@ -63,7 +64,14 @@ public class EnemyBehaviour : MonoBehaviour
         health = GetComponent<EnemyHealth>();
         animator = GetComponent<Animator>();
     }
+    private void Start()
+    {
+        if (isSpawned)
+        {
+            newTargetPosition();
+        }
 
+    }
     private void Update()
     {
 

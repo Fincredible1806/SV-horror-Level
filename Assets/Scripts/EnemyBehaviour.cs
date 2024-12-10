@@ -258,4 +258,6 @@ public class EnemyBehaviour : MonoBehaviour
         walkPointIsSet = true;
         walkPoint = player.transform.position;
     }
+
+
 }

@@ -2365,9 +2365,10 @@ MonoBehaviour:
   agent: {fileID: 0}
   timeToNextPoint: 2.5
   timeSinceLastPoint: 0
+  isSpawned: 1
   health: {fileID: 7026847058611060150}
   player: {fileID: 0}
-  newSightRange: 0
+  newSightRange: 4
   whatIsFloor:
     serializedVersion: 2
     m_Bits: 8

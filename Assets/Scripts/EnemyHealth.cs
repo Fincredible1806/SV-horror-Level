@@ -14,12 +14,14 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] int boxFill;
     public EnemyBox box;
     [SerializeField] GameObject partFX;
+    ParticleSystem partSys;
 
     // Start is called before the first frame update
     void Start()
     {
         if (isBoxFiller)
         {
+            partSys = partFX.GetComponent<ParticleSystem>();
             partFX.SetActive(true);
         }
         enemyBehaviour = GetComponent<EnemyBehaviour>();
@@ -32,7 +34,7 @@ public class EnemyHealth : MonoBehaviour
         if (alive)
         {
             Debug.Log("TakeDamage" + damage);
-            health = health - damage;
+            health -= damage;
             enemyBehaviour.newTargetPosition();
             if (health <= 0)
             {
@@ -41,10 +43,11 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
-    private void KillZombie()
+    public void KillZombie()
     {
         if(isBoxFiller && box != null)
         {
+            partSys.Stop();
             box.chargeRate = boxFill;
             box.SoulFill();
         }

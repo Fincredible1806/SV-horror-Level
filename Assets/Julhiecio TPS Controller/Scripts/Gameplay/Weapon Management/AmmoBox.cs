@@ -8,7 +8,7 @@ public class AmmoBox : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.CompareTag("Player"))
         {
             var pl = other.GetComponent<ThirdPersonController>();
             if (pl.IsArmed && pl.WeaponInUse != null)
@@ -31,7 +31,7 @@ public class AmmoBox : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.CompareTag("Player"))
         {
             var pl = other.GetComponent<ThirdPersonController>();
             if (pl.IsArmed && pl.WeaponInUse != null)
@@ -53,7 +53,7 @@ public class AmmoBox : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.CompareTag("Player"))
         {
             var pl = other.GetComponent<ThirdPersonController>();
             if (pl.IsArmed && pl.WeaponInUse != null)

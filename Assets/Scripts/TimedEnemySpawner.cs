@@ -9,19 +9,12 @@ public class TimedEnemySpawner : MonoBehaviour
 {
     [SerializeField] float xRange;
     [SerializeField] float yRange;
-    Vector3 spawnRange;
     public int enemiesToSpawn;
-    private int enemiesSpawned;
     public List<GameObject> enemies;
     public bool active = false;
-    [SerializeField] float timeBetweenSpawns;
+    public float timeBetweenSpawns;
     [SerializeField] float timePassed;
     [SerializeField] GameObject spawnFX;
-    // Start is called before the first frame update
-    void Start()
-    {
-        spawnRange = new Vector3(xRange, yRange);
-    }
 
     // Update is called once per frame
     void Update()

@@ -10,26 +10,44 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] Animator animator;
     [SerializeField] private string deadTriggername;
     private EnemyBehaviour enemyBehaviour;
+    public bool isBoxFiller = false;
+    [SerializeField] int boxFill;
+    public EnemyBox box;
+    [SerializeField] GameObject partFX;
+
     // Start is called before the first frame update
     void Start()
     {
+        if (isBoxFiller)
+        {
+            partFX.SetActive(true);
+        }
         enemyBehaviour = GetComponent<EnemyBehaviour>();
         alive = true;
+
     }
 
     public void TakeDamage()
     {
-        Debug.Log("TakeDamage" + damage);
-        health = health -damage;
-        enemyBehaviour.walkPoint = enemyBehaviour.player.transform.position;
-        if (health <= 0)
+        if (alive)
         {
-            KillZombie();
+            Debug.Log("TakeDamage" + damage);
+            health = health - damage;
+            enemyBehaviour.newTargetPosition();
+            if (health <= 0)
+            {
+                KillZombie();
+            }
         }
     }
 
     private void KillZombie()
     {
+        if(isBoxFiller && box != null)
+        {
+            box.chargeRate = boxFill;
+            box.SoulFill();
+        }
         alive = false;
         animator.SetTrigger(deadTriggername);
         Destroy(gameObject, 3f);

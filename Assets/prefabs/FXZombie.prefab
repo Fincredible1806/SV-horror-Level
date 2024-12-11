@@ -7077,7 +7077,7 @@ GameObject:
   - component: {fileID: 8457676980510098632}
   - component: {fileID: 8253479442118300472}
   m_Layer: 0
-  m_Name: Zombie1
+  m_Name: FXZombie
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7175,7 +7175,7 @@ MonoBehaviour:
   damage: 25
   animator: {fileID: 5066630414849340824}
   deadTriggername: Died
-  isBoxFiller: 0
+  isBoxFiller: 1
   boxFill: 1
   box: {fileID: 0}
   partFX: {fileID: 5438337512581939317}

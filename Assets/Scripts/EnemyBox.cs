@@ -64,7 +64,7 @@ public class EnemyBox : MonoBehaviour
         FXsystem.Play();
         foreach (TimedEnemySpawner spawner in spawns)
         {
-            spawner.active = false;
+            spawner.DeActivate();
         }
     }
     private void OnTriggerEnter(Collider other)

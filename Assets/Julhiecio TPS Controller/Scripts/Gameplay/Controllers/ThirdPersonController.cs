@@ -184,58 +184,66 @@ public class ThirdPersonController : MonoBehaviour
     }
     void FixedUpdate()
     {
-        if (IsDead == true)
-            return;
-        Movement();
-        StepCorrect();
+        if (!PauseMenu.isPaused)
+        {
+            if (IsDead == true)
+                return;
+            Movement();
+            StepCorrect();
+        }
+
     }
     void Update()
     {
-        if (IsDead == true)
+        if (!PauseMenu.isPaused)
         {
-            Health = 0;
-            CanMove = false;
-            IsRunning = false;
-            IsCrouched = false;
-            IsJumping = false;
-            IsGrounded = false;
-            IsArmed = false;
-            IsRolling = false;
-            IsDriving = false;
-            Shot = false;
-            WallInFront = false;
-            InverseKinematics = false;
-            anim.SetLayerWeight(1, 0);
+            if (IsDead == true)
+            {
+                Health = 0;
+                CanMove = false;
+                IsRunning = false;
+                IsCrouched = false;
+                IsJumping = false;
+                IsGrounded = false;
+                IsArmed = false;
+                IsRolling = false;
+                IsDriving = false;
+                Shot = false;
+                WallInFront = false;
+                InverseKinematics = false;
+                anim.SetLayerWeight(1, 0);
 
-            var rot = transform.rotation;
-            rot.x = 0;
-            rot.z = 0;
-            transform.rotation = rot;
+                var rot = transform.rotation;
+                rot.x = 0;
+                rot.z = 0;
+                transform.rotation = rot;
 
-            GetComponent<Collider>().isTrigger = false;
-            rb.useGravity = true;
-            rb.velocity = transform.up * rb.velocity.y;
+                GetComponent<Collider>().isTrigger = false;
+                rb.useGravity = true;
+                rb.velocity = transform.up * rb.velocity.y;
 
-            return;
+                return;
+            }
+
+
+            if (IsDead == false && DisableAllMove == false)
+            {
+                Inputs();
+                Rotate();
+                FootstepsTimer();
+                WeaponControl();
+                DriveControl();
+                PickUpWeapons();
+                WeaponIKControl();
+                FootPlacementIKController();
+            }
+            if (DisableAllMove)
+            {
+                anim.SetLayerWeight(1, 0f);
+                WeightIK = 0;
+            }
         }
 
-
-        if (IsDead == false && DisableAllMove == false)
-        {
-            Inputs();
-            Rotate();
-            FootstepsTimer();
-            WeaponControl();
-            DriveControl();
-            PickUpWeapons();
-            WeaponIKControl();
-            FootPlacementIKController();
-        }
-        if (DisableAllMove)
-        {
-            anim.SetLayerWeight(1, 0f);
-            WeightIK = 0;
-        }
     }
 
     #region Weapon Switch

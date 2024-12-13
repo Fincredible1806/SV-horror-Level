@@ -53,6 +53,7 @@ public class TimedEnemySpawner : MonoBehaviour
 
     public void DeActivate()
     {
+        Debug.Log("Deactivated");
         active = false;
         spawnFX.SetActive(false);
     }

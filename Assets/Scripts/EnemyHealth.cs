@@ -47,7 +47,10 @@ public class EnemyHealth : MonoBehaviour
     {
         if(isBoxFiller && box != null)
         {
-            partSys.Stop();
+            if(partSys != null)
+            {
+                partSys.Stop();
+            }
             box.chargeRate = boxFill;
             box.SoulFill();
         }

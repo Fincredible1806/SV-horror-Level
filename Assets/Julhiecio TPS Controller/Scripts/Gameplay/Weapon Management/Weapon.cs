@@ -300,8 +300,8 @@ public class Weapon : MonoBehaviour
 		{
 			if (TotalBullets >= BulletsPerMagazine)
 			{
-				BulletsAmounts = BulletsPerMagazine;
-				TotalBullets -= BulletsPerMagazine;
+                TotalBullets -= BulletsPerMagazine - BulletsAmounts;
+                BulletsAmounts = BulletsPerMagazine;
 			}
 			else
 			{

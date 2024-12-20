@@ -15,6 +15,8 @@ public class EnemyHealth : MonoBehaviour
     public EnemyBox box;
     [SerializeField] GameObject partFX;
     ParticleSystem partSys;
+    ZombieHolder holder;
+    [SerializeField] string holderName;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +25,7 @@ public class EnemyHealth : MonoBehaviour
         {
             partSys = partFX.GetComponent<ParticleSystem>();
             partFX.SetActive(true);
+            holder = GameObject.Find(holderName).GetComponent<ZombieHolder>();
         }
         enemyBehaviour = GetComponent<EnemyBehaviour>();
         alive = true;
@@ -47,6 +50,7 @@ public class EnemyHealth : MonoBehaviour
     {
         if(isBoxFiller && box != null)
         {
+            holder.RemoveZombie();
             if(partSys != null)
             {
                 partSys.Stop();

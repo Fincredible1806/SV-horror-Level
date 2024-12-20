@@ -15,17 +15,21 @@ public class TimedEnemySpawner : MonoBehaviour
     public float timeBetweenSpawns;
     [SerializeField] float timePassed;
     [SerializeField] GameObject spawnFX;
+    [SerializeField] ZombieHolder enemyCounter;
 
     // Update is called once per frame
     void Update()
     {
         if(active)
         {
-            timePassed += Time.deltaTime;
-            if(timePassed >= timeBetweenSpawns)
+            if (enemyCounter.currentSpawnedZombies < enemyCounter.maxZombies)
             {
-                SpawnEnemies();
-                timePassed = 0;
+                timePassed += Time.deltaTime;
+                if (timePassed >= timeBetweenSpawns)
+                {
+                    SpawnEnemies();
+                    timePassed = 0;
+                }
             }
         }
     }
@@ -38,6 +42,7 @@ public class TimedEnemySpawner : MonoBehaviour
 
     public void SpawnEnemies()
     {
+            enemyCounter.AddZombie();
             int spawnedEnemy = Random.Range(0, enemies.Count);
             GameObject enemyToSpawn = enemies[spawnedEnemy];
             Vector3 samplePos = transform.position + new Vector3((Random.Range(-xRange, xRange)), 0, Random.Range(-yRange, yRange));

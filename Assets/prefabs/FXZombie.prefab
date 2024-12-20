@@ -7179,6 +7179,7 @@ MonoBehaviour:
   boxFill: 1
   box: {fileID: 0}
   partFX: {fileID: 5438337512581939317}
+  holderName: ZombieHolder
 --- !u!114 &8457676980510098632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7203,7 +7204,7 @@ MonoBehaviour:
   isSpawned: 1
   health: {fileID: 7026847058611060150}
   player: {fileID: 0}
-  newSightRange: 4
+  newSightRange: 8
   whatIsFloor:
     serializedVersion: 2
     m_Bits: 8
@@ -7213,7 +7214,7 @@ MonoBehaviour:
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointRange: 4
   attackRate: 2
-  sightRange: 4
+  sightRange: 8
   attackRange: 1.2
   playerInSight: 0
   playerInAttackRange: 0

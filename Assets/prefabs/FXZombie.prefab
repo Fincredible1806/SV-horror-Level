@@ -7180,6 +7180,8 @@ MonoBehaviour:
   box: {fileID: 0}
   partFX: {fileID: 5438337512581939317}
   holderName: ZombieHolder
+  hitClip: {fileID: 8300000, guid: 142495d70c2acda4cbffadf73ed45f5a, type: 3}
+  deadClip: {fileID: 8300000, guid: 1f351f19ec40d5a4b8f113b567e8dfcb, type: 3}
 --- !u!114 &8457676980510098632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7197,6 +7199,9 @@ MonoBehaviour:
   walkAnimBool: Wandering
   idleAnimBool: Idling
   chaseAnimBool: Chasing
+  audioSource: {fileID: 0}
+  attackClip: {fileID: 8300000, guid: b11d73c6b195da747b6a6e99440bdffc, type: 3}
+  spotClip: {fileID: 8300000, guid: 142495d70c2acda4cbffadf73ed45f5a, type: 3}
   playerName: '[ PLAYER ]'
   agent: {fileID: 0}
   timeToNextPoint: 2.5

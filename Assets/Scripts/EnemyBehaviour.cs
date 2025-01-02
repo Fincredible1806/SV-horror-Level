@@ -11,7 +11,9 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] string walkAnimBool;
     [SerializeField] string idleAnimBool;
     [SerializeField] string chaseAnimBool;
-
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip attackClip;
+    [SerializeField] AudioClip spotClip;
 
     [Header("Config")]
     [SerializeField] private string playerName;
@@ -55,6 +57,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void Awake()
     {
+        AudioSource.PlayClipAtPoint(spotClip, transform.position);
         if (waiting)
         {
             suspicious = false;
@@ -200,6 +203,8 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void Chasing()
     {
+        audioSource.clip = spotClip;
+        audioSource.Play();
         suspicious = true;
         agent.SetDestination(player.position);
         animator.SetBool(walkAnimBool, false); 
@@ -222,6 +227,8 @@ public class EnemyBehaviour : MonoBehaviour
 
         if(!attackedAlready)
         {
+            audioSource.clip = attackClip;
+            audioSource.Play();
             // Insert animation invoke
             Debug.Log("Attack");
             attackedAlready = true;

@@ -17,10 +17,14 @@ public class EnemyHealth : MonoBehaviour
     ParticleSystem partSys;
     ZombieHolder holder;
     [SerializeField] string holderName;
+    AudioSource source;
+    [SerializeField]AudioClip hitClip;
+    [SerializeField] AudioClip deadClip;
 
     // Start is called before the first frame update
     void Start()
     {
+        source = GetComponent<AudioSource>();
         if (isBoxFiller)
         {
             partSys = partFX.GetComponent<ParticleSystem>();
@@ -36,6 +40,8 @@ public class EnemyHealth : MonoBehaviour
     {
         if (alive)
         {
+            source.clip = hitClip;
+            source.Play();
             Debug.Log("TakeDamage" + damage);
             health -= damage;
             enemyBehaviour.newTargetPosition();
@@ -48,6 +54,8 @@ public class EnemyHealth : MonoBehaviour
 
     public void KillZombie()
     {
+        source.clip = deadClip;
+        source.Play();
         if(isBoxFiller && box != null)
         {
             holder.RemoveZombie();

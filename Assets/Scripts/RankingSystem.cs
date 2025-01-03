@@ -10,15 +10,20 @@ public class RankingSystem : MonoBehaviour
     [SerializeField] private string[] rankNames;
     [SerializeField] private string[] plusAndMinus;
     [SerializeField] private float timeTaken = 0;
+    bool isPlus;
     [SerializeField] private float rankToCheck;
     [SerializeField] private int currentRanking;
     [SerializeField] private TextMeshProUGUI currentRankText;
     [SerializeField] private TextMeshProUGUI currentPlusOrMinus;
     private int zombiesInMap;
-    [SerializeField] public int zombiesKilled;
+    public int zombiesKilled;
+    [SerializeField] private TextMeshProUGUI finalRankText;
+    int finalTiming;
+    [SerializeField] TextMeshProUGUI zombiesToPlus;
     // Start is called before the first frame update
     void Start()
     {
+        isPlus = false;    
         zombiesInMap = GameObject.FindObjectsOfType(typeof(EnemyBehaviour)).Length; ;
         rankToCheck = rankTimes[0];
         currentRankText.text = "Current Rank: " + rankNames[currentRanking];
@@ -39,15 +44,29 @@ public class RankingSystem : MonoBehaviour
     private void RankChanger()
     {
         rankToCheck = rankTimes[currentRanking];
-        currentRanking++;
         currentRankText.text = "Current Rank: " + rankNames[currentRanking];
+        currentRanking++;
     }
 
-    private void PlusOrMinus()
+    public void PlusOrMinus()
     {
-        if(zombiesKilled >= zombiesInMap)
+        if(zombiesKilled >= zombiesInMap/2)
         {
+            isPlus = true;
             currentPlusOrMinus.text = plusAndMinus[1];
         }
+    }
+
+    public void WinGame()
+    {
+        if(!isPlus)
+        {
+            zombiesToPlus.text = "Zombies needed to get a plus: " + (zombiesInMap - zombiesKilled);
+        }
+        int finalRankValue;
+        finalRankValue = Mathf.Clamp(currentRanking-1,0, rankNames.Length);
+        Debug.Log(finalRankValue);
+        finalTiming = (int)timeTaken;
+        finalRankText.text = "Time Taken: " + finalTiming + " seconds ," + " Final Rank: " + rankNames[finalRankValue] + " " + currentPlusOrMinus.text;
     }
 }

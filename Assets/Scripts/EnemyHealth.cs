@@ -11,19 +11,24 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] private string deadTriggername;
     private EnemyBehaviour enemyBehaviour;
     public bool isBoxFiller = false;
+    private RankingSystem systemer;
     [SerializeField] int boxFill;
     public EnemyBox box;
     [SerializeField] GameObject partFX;
     ParticleSystem partSys;
     ZombieHolder holder;
     [SerializeField] string holderName;
-    AudioSource source;
+    [SerializeField] AudioSource source;
     [SerializeField]AudioClip hitClip;
     [SerializeField] AudioClip deadClip;
 
     // Start is called before the first frame update
     void Start()
     {
+        if(!isBoxFiller)
+        {
+            systemer = FindObjectOfType<RankingSystem>();
+        }
         source = GetComponent<AudioSource>();
         if (isBoxFiller)
         {
@@ -54,6 +59,11 @@ public class EnemyHealth : MonoBehaviour
 
     public void KillZombie()
     {
+        if(systemer != null)
+        {
+            systemer.zombiesKilled++;
+            systemer.PlusOrMinus();
+        }
         source.clip = deadClip;
         source.Play();
         if(isBoxFiller && box != null)

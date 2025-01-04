@@ -2247,6 +2247,7 @@ GameObject:
   - component: {fileID: 8457676980510098632}
   - component: {fileID: 8253479442118300472}
   - component: {fileID: 3616018190434398190}
+  - component: {fileID: 2695140915740624627}
   m_Layer: 0
   m_Name: BiggerZombie
   m_TagString: Enemy
@@ -2516,6 +2517,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2695140915740624627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7093679190826256281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7066f4528487fc74a9e35119a59f8f3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7100346827090698378
 GameObject:
   m_ObjectHideFlags: 0

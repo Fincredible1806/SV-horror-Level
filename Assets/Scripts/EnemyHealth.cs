@@ -22,9 +22,12 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField]AudioClip hitClip;
     [SerializeField] AudioClip deadClip;
 
+    [SerializeField] GiantZombie gZombie;
+
     // Start is called before the first frame update
     void Start()
     {
+        gZombie = GetComponent<GiantZombie>();
         if(!isBoxFiller)
         {
             systemer = FindObjectOfType<RankingSystem>();
@@ -59,6 +62,10 @@ public class EnemyHealth : MonoBehaviour
 
     public void KillZombie()
     {
+        if(gZombie != null)
+        {
+            gZombie.AddToRankingSystem();
+        }
         if(systemer != null)
         {
             systemer.zombiesKilled++;

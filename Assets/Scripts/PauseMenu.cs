@@ -7,6 +7,7 @@ public class PauseMenu : MonoBehaviour
     public GameObject pauseMenu;
     public KeyCode pauseKeyCode = KeyCode.Escape;
     public static bool isPaused;
+    public bool isWinner = false;
 
     // Start is called before the first frame update
     void Start()
@@ -33,7 +34,10 @@ public class PauseMenu : MonoBehaviour
     public void PauseGame()
     {
         pauseMenu.SetActive(true);
-        Time.timeScale = 0f;
+        if(!isWinner)
+        {
+            Time.timeScale = 0f;
+        }
         isPaused = true;
     }    
 

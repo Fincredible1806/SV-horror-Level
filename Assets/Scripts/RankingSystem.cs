@@ -14,14 +14,12 @@ public class RankingSystem : MonoBehaviour
     [Header("TextMeshPros")]
     [SerializeField] private TextMeshProUGUI finalRankText;
     [SerializeField] private TextMeshProUGUI bigGameHunter;
-    
-    int finalTiming;
     [SerializeField] TextMeshProUGUI zombiesToPlus;
     [SerializeField] private TextMeshProUGUI currentRankText;
     [SerializeField] private TextMeshProUGUI currentPlusOrMinus;
+    [SerializeField] private TextMeshProUGUI totalZombiesKilledText;
     [Header("Timings")]
     [SerializeField] private float timeTaken = 0;
-    bool isPlus;
     [SerializeField] private float rankToCheck;
     [SerializeField] private int currentRanking;
     [Header("Zombie Stuff")]
@@ -29,11 +27,12 @@ public class RankingSystem : MonoBehaviour
     public int zombiesKilled;
     [SerializeField] private int bigZombies;
     public int bigZombiesKilled;
+    int finalTiming;
+    bool isPlus;
 
     // Start is called before the first frame update
     void Start()
     {
-        allZombies = FindObjectsOfType<EnemyHealth>();
         isPlus = false;    
         rankToCheck = rankTimes[0];
         currentRankText.text = "Current Rank: " + rankNames[currentRanking];
@@ -49,6 +48,7 @@ public class RankingSystem : MonoBehaviour
         {
             RankChanger();
         }
+
     }
 
     private void RankChanger()
@@ -69,7 +69,7 @@ public class RankingSystem : MonoBehaviour
 
     public void WinGame()
     {
-
+        allZombies = FindObjectsOfType<EnemyHealth>();
         StartCoroutine(FinalStuff());
     }
 
@@ -86,6 +86,7 @@ public class RankingSystem : MonoBehaviour
             zombiesToPlus.gameObject.SetActive(true);
             zombiesToPlus.text = "Zombies needed to earn the SLAYER accolade: " + (zombiesInMap - zombiesKilled);
         }
+        totalZombiesKilledText.text = "Total Zombies Killed: " + zombiesKilled;
         if (bigZombiesKilled >= bigZombies)
         {
             bigGameHunter.gameObject.SetActive(true);
@@ -97,7 +98,7 @@ public class RankingSystem : MonoBehaviour
         finalRankText.text = "Time Taken: " + finalTiming + " seconds ," + " Final Rank: " + rankNames[finalRankValue] + " " + currentPlusOrMinus.text;
     }
 
-    public void killBigZombie()
+    public void KillBigZombie()
     {
         bigZombiesKilled++;
     }

@@ -13,6 +13,6 @@ public class GiantZombie : MonoBehaviour
     }
     public void AddToRankingSystem()
     {
-        rSystem.killBigZombie();
+        rSystem.KillBigZombie();
     }
 }
